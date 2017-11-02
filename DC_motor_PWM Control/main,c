@@ -1,0 +1,11 @@
+#Include <avr/io.h>
+
+int main(void)
+{
+	TCCR1A |= 1 << WGM11;
+	TCCR1B |= 1 << WGM12 | 1 << WGM13;
+	while(1)
+	{
+	
+	}
+}

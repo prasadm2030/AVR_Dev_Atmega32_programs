@@ -1,0 +1,75 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 8FEF      		ldi r24,lo8(-1)
+  25 0002 81BB      		out 49-32,r24
+  26               	.LM3:
+  27 0004 8FB5      		in r24,79-32
+  28 0006 826C      		ori r24,lo8(-62)
+  29 0008 8FBD      		out 79-32,r24
+  30               	.LM4:
+  31 000a 8EB5      		in r24,78-32
+  32 000c 8961      		ori r24,lo8(25)
+  33 000e 8EBD      		out 78-32,r24
+  34               	.LM5:
+  35 0010 80EF      		ldi r24,lo8(22000)
+  36 0012 95E5      		ldi r25,hi8(22000)
+  37 0014 97BD      		out (70)+1-32,r25
+  38 0016 86BD      		out 70-32,r24
+  39               	.L2:
+  40               	.LBB4:
+  41               	.LBB5:
+  42               	.LM6:
+  43 0018 86B5      		in r24,70-32
+  44 001a 97B5      		in r25,(70)+1-32
+  45 001c 8052      		subi r24,lo8(-(-20000))
+  46 001e 9E44      		sbci r25,hi8(-(-20000))
+  47 0020 9BBD      		out (74)+1-32,r25
+  48 0022 8ABD      		out 74-32,r24
+  49 0024 00C0      		rjmp .L2
+  50               	.LBE5:
+  51               	.LBE4:
+  52               	.LFE6:
+  54               	.global	speed
+  56               	speed:
+  57               	.LFB7:
+  58               	.LM7:
+  59               	.LVL0:
+  60               	/* prologue: function */
+  61               	/* frame size = 0 */
+  62               	.LM8:
+  63 0026 26B5      		in r18,70-32
+  64 0028 37B5      		in r19,(70)+1-32
+  65 002a 281B      		sub r18,r24
+  66 002c 390B      		sbc r19,r25
+  67 002e 3BBD      		out (74)+1-32,r19
+  68 0030 2ABD      		out 74-32,r18
+  69               	/* epilogue start */
+  70               	.LM9:
+  71 0032 0895      		ret
+  72               	.LFE7:
+ 106               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:2      *ABS*:0000003f __SREG__
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:5      *ABS*:00000034 __CCP__
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:18     .text:00000000 main
+C:\Users\Prasad\AppData\Local\Temp/ccsCsPHF.s:56     .text:00000026 speed
+
+NO UNDEFINED SYMBOLS

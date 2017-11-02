@@ -1,0 +1,40 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 87B3      		in r24,55-32
+  25 0002 8560      		ori r24,lo8(5)
+  26 0004 87BB      		out 55-32,r24
+  27               	.L3:
+  28               	.LM3:
+  29 0006 B19B      		sbis 54-32,1
+  30               	.LM4:
+  31 0008 C29A      		sbi 56-32,2
+  32               	.L2:
+  33               	.LM5:
+  34 000a C29A      		sbi 56-32,2
+  35 000c 00C0      		rjmp .L3
+  36               	.LFE6:
+  62               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:2      *ABS*:0000003f __SREG__
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:5      *ABS*:00000034 __CCP__
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Prasad\AppData\Local\Temp/ccHDFFbB.s:18     .text:00000000 main
+
+NO UNDEFINED SYMBOLS

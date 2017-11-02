@@ -1,0 +1,331 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	ProcessPressedButton
+  18               	ProcessPressedButton:
+  19               	.LFB7:
+  20               	.LM1:
+  21               	.LVL0:
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24 0000 BC01      		movw r22,r24
+  25               	.LM2:
+  26 0002 AC01      		movw r20,r24
+  27 0004 440F      		lsl r20
+  28 0006 551F      		rol r21
+  29               	.LVL1:
+  30 0008 FA01      		movw r30,r20
+  31 000a E050      		subi r30,lo8(-(pressed_confidence_level))
+  32 000c F040      		sbci r31,hi8(-(pressed_confidence_level))
+  33 000e 8081      		ld r24,Z
+  34 0010 9181      		ldd r25,Z+1
+  35 0012 0196      		adiw r24,1
+  36 0014 9183      		std Z+1,r25
+  37 0016 8083      		st Z,r24
+  38               	.LM3:
+  39 0018 8955      		subi r24,lo8(601)
+  40 001a 9240      		sbci r25,hi8(601)
+  41 001c 04F4      		brge .+2
+  42 001e 00C0      		rjmp .L11
+  43               	.LM4:
+  44 0020 FA01      		movw r30,r20
+  45 0022 E050      		subi r30,lo8(-(pressed))
+  46 0024 F040      		sbci r31,hi8(-(pressed))
+  47 0026 8081      		ld r24,Z
+  48 0028 9181      		ldd r25,Z+1
+  49 002a 892B      		or r24,r25
+  50 002c 01F0      		breq .+2
+  51 002e 00C0      		rjmp .L3
+  52               	.LM5:
+  53 0030 21E0      		ldi r18,lo8(1)
+  54 0032 30E0      		ldi r19,hi8(1)
+  55 0034 3183      		std Z+1,r19
+  56 0036 2083      		st Z,r18
+  57               	.LM6:
+  58 0038 FA01      		movw r30,r20
+  59 003a E050      		subi r30,lo8(-(LEDnumber))
+  60 003c F040      		sbci r31,hi8(-(LEDnumber))
+  61 003e 4081      		ld r20,Z
+  62 0040 5181      		ldd r21,Z+1
+  63 0042 4F5F      		subi r20,lo8(-(1))
+  64 0044 5F4F      		sbci r21,hi8(-(1))
+  65 0046 5183      		std Z+1,r21
+  66 0048 4083      		st Z,r20
+  67               	.LM7:
+  68 004a 6115      		cp r22,__zero_reg__
+  69 004c 7105      		cpc r23,__zero_reg__
+  70 004e 01F4      		brne .L4
+  71 0050 88B3      		in r24,56-32
+  72 0052 042E      		mov r0,r20
+  73 0054 00C0      		rjmp 2f
+  74 0056 220F      	1:	lsl r18
+  75 0058 331F      		rol r19
+  76 005a 0A94      	2:	dec r0
+  77 005c 02F4      		brpl 1b
+  78 005e 822B      		or r24,r18
+  79 0060 88BB      		out 56-32,r24
+  80 0062 00C0      		rjmp .L5
+  81               	.L4:
+  82               	.LM8:
+  83 0064 6130      		cpi r22,1
+  84 0066 7105      		cpc r23,__zero_reg__
+  85 0068 01F4      		brne .L5
+  86 006a 22B3      		in r18,50-32
+  87 006c CB01      		movw r24,r22
+  88 006e 042E      		mov r0,r20
+  89 0070 00C0      		rjmp 2f
+  90 0072 880F      	1:	lsl r24
+  91 0074 991F      		rol r25
+  92 0076 0A94      	2:	dec r0
+  93 0078 02F4      		brpl 1b
+  94 007a 282B      		or r18,r24
+  95 007c 22BB      		out 50-32,r18
+  96               	.L5:
+  97               	.LM9:
+  98 007e 4730      		cpi r20,7
+  99 0080 5105      		cpc r21,__zero_reg__
+ 100 0082 04F0      		brlt .L3
+ 101 0084 20E0      		ldi r18,lo8(0)
+ 102 0086 30E0      		ldi r19,hi8(0)
+ 103               	.LVL2:
+ 104               	.LBB23:
+ 105               	.LM10:
+ 106 0088 F0E8      		ldi r31,lo8(-128)
+ 107               	.LBB24:
+ 108               	.LBB25:
+ 109               	.LBB26:
+ 110               	.LBB27:
+ 111               	.LM11:
+ 112 008a 40E2      		ldi r20,lo8(20000)
+ 113 008c 5EE4      		ldi r21,hi8(20000)
+ 114               	.LBE27:
+ 115               	.LBE26:
+ 116               	.LBE25:
+ 117               	.LBE24:
+ 118               	.LM12:
+ 119 008e EFEF      		ldi r30,lo8(-1)
+ 120               	.LVL3:
+ 121               	.L10:
+ 122               	.LM13:
+ 123 0090 6115      		cp r22,__zero_reg__
+ 124 0092 7105      		cpc r23,__zero_reg__
+ 125 0094 01F4      		brne .L6
+ 126 0096 F8BB      		out 56-32,r31
+ 127 0098 00C0      		rjmp .L7
+ 128               	.L6:
+ 129               	.LM14:
+ 130 009a 6130      		cpi r22,1
+ 131 009c 7105      		cpc r23,__zero_reg__
+ 132 009e 01F4      		brne .L7
+ 133 00a0 F2BB      		out 50-32,r31
+ 134               	.L7:
+ 135               	.LBB31:
+ 136               	.LBB30:
+ 137               	.LBB29:
+ 138               	.LBB28:
+ 139               	.LM15:
+ 140 00a2 CA01      		movw r24,r20
+ 141               	.LVL4:
+ 142               	/* #APP */
+ 143               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 144 00a4 0197      		1: sbiw r24,1
+ 145 00a6 01F4      		brne 1b
+ 146               	 ;  0 "" 2
+ 147               	/* #NOAPP */
+ 148               	.LBE28:
+ 149               	.LBE29:
+ 150               	.LBE30:
+ 151               	.LBE31:
+ 152               	.LM16:
+ 153 00a8 6115      		cp r22,__zero_reg__
+ 154 00aa 7105      		cpc r23,__zero_reg__
+ 155 00ac 01F4      		brne .L8
+ 156 00ae E8BB      		out 56-32,r30
+ 157 00b0 00C0      		rjmp .L9
+ 158               	.L8:
+ 159               	.LM17:
+ 160 00b2 6130      		cpi r22,1
+ 161 00b4 7105      		cpc r23,__zero_reg__
+ 162 00b6 01F4      		brne .L9
+ 163 00b8 E2BB      		out 50-32,r30
+ 164               	.L9:
+ 165               	.LBB32:
+ 166               	.LBB33:
+ 167               	.LBB34:
+ 168               	.LBB35:
+ 169               	.LM18:
+ 170 00ba CA01      		movw r24,r20
+ 171               	.LVL5:
+ 172               	/* #APP */
+ 173               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 174 00bc 0197      		1: sbiw r24,1
+ 175 00be 01F4      		brne 1b
+ 176               	 ;  0 "" 2
+ 177               	/* #NOAPP */
+ 178               	.LBE35:
+ 179               	.LBE34:
+ 180               	.LBE33:
+ 181               	.LBE32:
+ 182               	.LM19:
+ 183 00c0 2F5F      		subi r18,lo8(-(1))
+ 184 00c2 3F4F      		sbci r19,hi8(-(1))
+ 185 00c4 2A30      		cpi r18,10
+ 186 00c6 3105      		cpc r19,__zero_reg__
+ 187 00c8 01F4      		brne .L10
+ 188               	.LBE23:
+ 189               	.LM20:
+ 190 00ca 1092 0000 		sts (LEDnumber)+1,__zero_reg__
+ 191 00ce 1092 0000 		sts LEDnumber,__zero_reg__
+ 192               	.LM21:
+ 193 00d2 1092 0000 		sts (LEDnumber+2)+1,__zero_reg__
+ 194 00d6 1092 0000 		sts LEDnumber+2,__zero_reg__
+ 195               	.L3:
+ 196               	.LM22:
+ 197 00da 1092 0000 		sts (pressed_confidence_level)+1,__zero_reg__
+ 198 00de 1092 0000 		sts pressed_confidence_level,__zero_reg__
+ 199               	.L11:
+ 200 00e2 0895      		ret
+ 201               	.LFE7:
+ 203               	.global	main
+ 205               	main:
+ 206               	.LFB6:
+ 207               	.LM23:
+ 208               	/* prologue: function */
+ 209               	/* frame size = 0 */
+ 210               	.LM24:
+ 211 00e4 8FE7      		ldi r24,lo8(127)
+ 212 00e6 87BB      		out 55-32,r24
+ 213               	.LM25:
+ 214 00e8 81BB      		out 49-32,r24
+ 215               	.LM26:
+ 216 00ea 80E8      		ldi r24,lo8(-128)
+ 217 00ec 88BB      		out 56-32,r24
+ 218               	.LM27:
+ 219 00ee 82BB      		out 50-32,r24
+ 220               	.L21:
+ 221               	.LM28:
+ 222 00f0 B799      		sbic 54-32,7
+ 223 00f2 00C0      		rjmp .L14
+ 224               	.LM29:
+ 225 00f4 80E0      		ldi r24,lo8(0)
+ 226 00f6 90E0      		ldi r25,hi8(0)
+ 227 00f8 0E94 0000 		call ProcessPressedButton
+ 228 00fc 00C0      		rjmp .L15
+ 229               	.L14:
+ 230               	.LBB36:
+ 231               	.LBB37:
+ 232               	.LM30:
+ 233 00fe 8091 0000 		lds r24,released_confidence_level
+ 234 0102 9091 0000 		lds r25,(released_confidence_level)+1
+ 235 0106 0196      		adiw r24,1
+ 236 0108 9093 0000 		sts (released_confidence_level)+1,r25
+ 237 010c 8093 0000 		sts released_confidence_level,r24
+ 238               	.LM31:
+ 239 0110 8955      		subi r24,lo8(601)
+ 240 0112 9240      		sbci r25,hi8(601)
+ 241 0114 04F0      		brlt .L15
+ 242               	.LM32:
+ 243 0116 1092 0000 		sts (pressed)+1,__zero_reg__
+ 244 011a 1092 0000 		sts pressed,__zero_reg__
+ 245               	.LM33:
+ 246 011e 1092 0000 		sts (released_confidence_level)+1,__zero_reg__
+ 247 0122 1092 0000 		sts released_confidence_level,__zero_reg__
+ 248               	.L15:
+ 249               	.LBE37:
+ 250               	.LBE36:
+ 251               	.LM34:
+ 252 0126 B799      		sbic 54-32,7
+ 253 0128 00C0      		rjmp .L16
+ 254               	.LM35:
+ 255 012a 81E0      		ldi r24,lo8(1)
+ 256 012c 90E0      		ldi r25,hi8(1)
+ 257 012e 0E94 0000 		call ProcessPressedButton
+ 258 0132 00C0      		rjmp .L21
+ 259               	.L16:
+ 260               	.LBB38:
+ 261               	.LBB39:
+ 262               	.LM36:
+ 263 0134 8091 0000 		lds r24,released_confidence_level+2
+ 264 0138 9091 0000 		lds r25,(released_confidence_level+2)+1
+ 265 013c 0196      		adiw r24,1
+ 266 013e 9093 0000 		sts (released_confidence_level+2)+1,r25
+ 267 0142 8093 0000 		sts released_confidence_level+2,r24
+ 268               	.LM37:
+ 269 0146 8955      		subi r24,lo8(601)
+ 270 0148 9240      		sbci r25,hi8(601)
+ 271 014a 04F0      		brlt .L21
+ 272               	.LM38:
+ 273 014c 1092 0000 		sts (pressed+2)+1,__zero_reg__
+ 274 0150 1092 0000 		sts pressed+2,__zero_reg__
+ 275               	.LM39:
+ 276 0154 1092 0000 		sts (released_confidence_level+2)+1,__zero_reg__
+ 277 0158 1092 0000 		sts released_confidence_level+2,__zero_reg__
+ 278 015c 00C0      		rjmp .L21
+ 279               	.LBE39:
+ 280               	.LBE38:
+ 281               	.LFE6:
+ 283               	.global	ProcessReleasedbutton
+ 285               	ProcessReleasedbutton:
+ 286               	.LFB8:
+ 287               	.LM40:
+ 288               	.LVL6:
+ 289               	/* prologue: function */
+ 290               	/* frame size = 0 */
+ 291               	.LM41:
+ 292 015e FC01      		movw r30,r24
+ 293 0160 EE0F      		lsl r30
+ 294 0162 FF1F      		rol r31
+ 295 0164 DF01      		movw r26,r30
+ 296 0166 A050      		subi r26,lo8(-(released_confidence_level))
+ 297 0168 B040      		sbci r27,hi8(-(released_confidence_level))
+ 298 016a 8D91      		ld r24,X+
+ 299 016c 9C91      		ld r25,X
+ 300 016e 1197      		sbiw r26,1
+ 301               	.LVL7:
+ 302 0170 0196      		adiw r24,1
+ 303 0172 1196      		adiw r26,1
+ 304 0174 9C93      		st X,r25
+ 305 0176 8E93      		st -X,r24
+ 306               	.LM42:
+ 307 0178 8955      		subi r24,lo8(601)
+ 308 017a 9240      		sbci r25,hi8(601)
+ 309 017c 04F0      		brlt .L24
+ 310               	.LM43:
+ 311 017e E050      		subi r30,lo8(-(pressed))
+ 312 0180 F040      		sbci r31,hi8(-(pressed))
+ 313 0182 1182      		std Z+1,__zero_reg__
+ 314 0184 1082      		st Z,__zero_reg__
+ 315               	.LM44:
+ 316 0186 1D92      		st X+,__zero_reg__
+ 317 0188 1C92      		st X,__zero_reg__
+ 318               	.L24:
+ 319 018a 0895      		ret
+ 320               	.LFE8:
+ 322               		.comm pressed_confidence_level,4,1
+ 323               		.comm released_confidence_level,4,1
+ 324               		.comm pressed,4,1
+ 325               		.comm LEDnumber,4,1
+ 366               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:2      *ABS*:0000003f __SREG__
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:5      *ABS*:00000034 __CCP__
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:18     .text:00000000 ProcessPressedButton
+                            *COM*:00000004 pressed_confidence_level
+                            *COM*:00000004 pressed
+                            *COM*:00000004 LEDnumber
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:205    .text:000000e4 main
+                            *COM*:00000004 released_confidence_level
+C:\Users\Prasad\AppData\Local\Temp/cc67RUBb.s:285    .text:0000015e ProcessReleasedbutton
+
+UNDEFINED SYMBOLS
+__do_clear_bss

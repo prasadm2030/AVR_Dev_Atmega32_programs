@@ -1,0 +1,181 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	ButtonPressed
+  18               	ButtonPressed:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	.LVL0:
+  22 0000 0F93      		push r16
+  23 0002 1F93      		push r17
+  24 0004 DF93      		push r29
+  25 0006 CF93      		push r28
+  26 0008 0F92      		push __tmp_reg__
+  27 000a CDB7      		in r28,__SP_L__
+  28 000c DEB7      		in r29,__SP_H__
+  29               	/* prologue: function */
+  30               	/* frame size = 1 */
+  31 000e 8C01      		movw r16,r24
+  32 0010 6983      		std Y+1,r22
+  33               	.LM2:
+  34 0012 8981      		ldd r24,Y+1
+  35               	.LVL1:
+  36 0014 90E0      		ldi r25,lo8(0)
+  37 0016 00C0      		rjmp 2f
+  38 0018 9595      	1:	asr r25
+  39 001a 8795      		ror r24
+  40 001c 4A95      	2:	dec r20
+  41 001e 02F4      		brpl 1b
+  42 0020 F801      		movw r30,r16
+  43 0022 EE0F      		lsl r30
+  44 0024 FF1F      		rol r31
+  45 0026 80FF      		sbrs r24,0
+  46 0028 00C0      		rjmp .L2
+  47               	.LVL2:
+  48               	.LM3:
+  49 002a DF01      		movw r26,r30
+  50 002c A050      		subi r26,lo8(-(pressed_confidence_level))
+  51 002e B040      		sbci r27,hi8(-(pressed_confidence_level))
+  52 0030 8D91      		ld r24,X+
+  53 0032 9C91      		ld r25,X
+  54 0034 1197      		sbiw r26,1
+  55 0036 0196      		adiw r24,1
+  56 0038 1196      		adiw r26,1
+  57 003a 9C93      		st X,r25
+  58 003c 8E93      		st -X,r24
+  59               	.LM4:
+  60 003e E050      		subi r30,lo8(-(released_confidence_level))
+  61 0040 F040      		sbci r31,hi8(-(released_confidence_level))
+  62 0042 1182      		std Z+1,__zero_reg__
+  63 0044 1082      		st Z,__zero_reg__
+  64               	.LM5:
+  65 0046 2817      		cp r18,r24
+  66 0048 3907      		cpc r19,r25
+  67 004a 04F4      		brge .L3
+  68               	.LM6:
+  69 004c F801      		movw r30,r16
+  70 004e E050      		subi r30,lo8(-(pressed))
+  71 0050 F040      		sbci r31,hi8(-(pressed))
+  72 0052 8081      		ld r24,Z
+  73 0054 8823      		tst r24
+  74 0056 01F4      		brne .L3
+  75               	.LM7:
+  76 0058 81E0      		ldi r24,lo8(1)
+  77 005a 8083      		st Z,r24
+  78               	.LM8:
+  79 005c 1D92      		st X+,__zero_reg__
+  80 005e 1C92      		st X,__zero_reg__
+  81 0060 00C0      		rjmp .L4
+  82               	.L2:
+  83               	.LM9:
+  84 0062 DF01      		movw r26,r30
+  85 0064 A050      		subi r26,lo8(-(released_confidence_level))
+  86 0066 B040      		sbci r27,hi8(-(released_confidence_level))
+  87 0068 8D91      		ld r24,X+
+  88 006a 9C91      		ld r25,X
+  89 006c 1197      		sbiw r26,1
+  90 006e 0196      		adiw r24,1
+  91 0070 1196      		adiw r26,1
+  92 0072 9C93      		st X,r25
+  93 0074 8E93      		st -X,r24
+  94               	.LM10:
+  95 0076 E050      		subi r30,lo8(-(pressed_confidence_level))
+  96 0078 F040      		sbci r31,hi8(-(pressed_confidence_level))
+  97 007a 1182      		std Z+1,__zero_reg__
+  98 007c 1082      		st Z,__zero_reg__
+  99               	.LM11:
+ 100 007e 2817      		cp r18,r24
+ 101 0080 3907      		cpc r19,r25
+ 102 0082 04F4      		brge .L3
+ 103               	.LM12:
+ 104 0084 0050      		subi r16,lo8(-(pressed))
+ 105 0086 1040      		sbci r17,hi8(-(pressed))
+ 106 0088 F801      		movw r30,r16
+ 107 008a 1082      		st Z,__zero_reg__
+ 108               	.LM13:
+ 109 008c 1D92      		st X+,__zero_reg__
+ 110 008e 1C92      		st X,__zero_reg__
+ 111               	.L3:
+ 112 0090 80E0      		ldi r24,lo8(0)
+ 113               	.L4:
+ 114               	/* epilogue start */
+ 115               	.LM14:
+ 116 0092 0F90      		pop __tmp_reg__
+ 117 0094 CF91      		pop r28
+ 118 0096 DF91      		pop r29
+ 119 0098 1F91      		pop r17
+ 120 009a 0F91      		pop r16
+ 121               	.LVL3:
+ 122 009c 0895      		ret
+ 123               	.LFE2:
+ 125               	.global	main
+ 127               	main:
+ 128               	.LFB3:
+ 129               	.LM15:
+ 130               	/* prologue: function */
+ 131               	/* frame size = 0 */
+ 132               	.LM16:
+ 133 009e 8CE0      		ldi r24,lo8(12)
+ 134 00a0 87BB      		out 55-32,r24
+ 135               	.L12:
+ 136               	.LM17:
+ 137 00a2 18BA      		out 56-32,__zero_reg__
+ 138               	.L11:
+ 139               	.LM18:
+ 140 00a4 66B3      		in r22,54-32
+ 141 00a6 80E0      		ldi r24,lo8(0)
+ 142 00a8 90E0      		ldi r25,hi8(0)
+ 143 00aa 40E0      		ldi r20,lo8(0)
+ 144 00ac 28E5      		ldi r18,lo8(600)
+ 145 00ae 32E0      		ldi r19,hi8(600)
+ 146 00b0 0E94 0000 		call ButtonPressed
+ 147 00b4 8111      		cpse r24,__zero_reg__
+ 148               	.LM19:
+ 149 00b6 C29A      		sbi 56-32,2
+ 150               	.L7:
+ 151               	.LM20:
+ 152 00b8 66B3      		in r22,54-32
+ 153 00ba 81E0      		ldi r24,lo8(1)
+ 154 00bc 90E0      		ldi r25,hi8(1)
+ 155 00be 41E0      		ldi r20,lo8(1)
+ 156 00c0 28E5      		ldi r18,lo8(600)
+ 157 00c2 32E0      		ldi r19,hi8(600)
+ 158 00c4 0E94 0000 		call ButtonPressed
+ 159 00c8 8823      		tst r24
+ 160 00ca 01F0      		breq .L8
+ 161               	.LM21:
+ 162 00cc C39A      		sbi 56-32,3
+ 163 00ce 00C0      		rjmp .L11
+ 164               	.L8:
+ 165               	.LM22:
+ 166 00d0 88B3      		in r24,56-32
+ 167 00d2 18BA      		out 56-32,__zero_reg__
+ 168               	.LM23:
+ 169 00d4 88B3      		in r24,56-32
+ 170 00d6 00C0      		rjmp .L12
+ 171               	.LFE3:
+ 173               		.comm pressed,2,1
+ 174               		.comm pressed_confidence_level,4,1
+ 175               		.comm released_confidence_level,4,1
+ 208               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:2      *ABS*:0000003f __SREG__
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:5      *ABS*:00000034 __CCP__
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:18     .text:00000000 ButtonPressed
+                            *COM*:00000004 pressed_confidence_level
+                            *COM*:00000004 released_confidence_level
+                            *COM*:00000002 pressed
+C:\Users\Prasad\AppData\Local\Temp/cc0HTosk.s:127    .text:0000009e main
+
+UNDEFINED SYMBOLS
+__do_clear_bss
